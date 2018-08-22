@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="Cache-Control" content="private">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="theme-color" content="#2C3E50">
+		<meta name="author" content="Караваев Александр" />
+		<title>Тестирование цвета сообщений в чате SA:MP</title>
+
+		<link rel="icon" type="image/png" href="favicon16.png" sizes="16x16">
+		<link rel="icon" type="image/png" href="favicon32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="favicon128.png" sizes="128x128">
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<link rel="stylesheet" href="normalize.css">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body onload="changeBG('checkbox')">
+		<div class="layout__main layout">
+			<img class="main__image" src="1.png" id="picture">
+			<div class="main__chatbox">
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Sergey_Pustov[8] подключился к серверу.</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Johny_Handrix[9] подключился к серверу.</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Vlad_Samalukov[10] подключился к серверу.</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Alex_Foxes[11] подключился к серверу.</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Тестирование цвета чата.</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Тестирование цвета чата.</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Тестирование цвета чата</div>
+				<div class="chatbox__line" contenteditable="true">[00:11:16] Тестирование цвета чата.</div>
+				<div class="chatbox__line" contenteditable="true">[00:39:09] Тестирование цвета чата.</div>
+				<div class="chatbox__line" contenteditable="true">[00:51:14] Тестирование цвета чата.</div>
+			</div>
+		</div>
+		<div class="layout__checkbox">
+			<input id="checkbox" type="checkbox" onclick="changeBG(this);">
+		</div>
+		<div class="layout__settings">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[0].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[1].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[2].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[3].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[4].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[5].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[6].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[7].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[8].style.color = this.value">
+			<input type="text" value="#fff" onchange="document.getElementsByClassName('chatbox__line')[9].style.color = this.value">
+		</div>
+		<div class="layout__color">
+			<p><label for="input__get_color">Введите код цвета: </label><input id="input__get_color" value="#FFFFFF" placeholder="#FFFFFF" type="text"></p>
+			<p><label for="input__set_color">Включить окрашивание текста: </label><input id="input__set_color" type="checkbox"></p>
+		</div>
+		<script>
+			function changeBG(elem){
+				document.getElementById("picture").src = (elem.checked) ? "1.png" : "0.png";
+			}
+			$(document).on("mouseup", ".chatbox__line", function() {styliString();});
+
+			function styliString() {
+				if (window.getSelection() == '' || !document.getElementById("input__set_color").checked) {
+					return false;
+				}
+				var range = window.getSelection().getRangeAt(0);
+				var selectionContents = range.extractContents();
+				var span = document.createElement("span");
+				span.appendChild(selectionContents);
+				span.setAttribute("class", "selected");
+				span.style.color = document.getElementById("input__get_color").value;
+				range.insertNode(span);
+			}
+		</script>
+	</body>
+</html>
